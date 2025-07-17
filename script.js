@@ -1,8 +1,10 @@
+// Código para abrir/fechar a cartinha
 const card = document.getElementById('card');
 card.addEventListener('click', () => {
   card.classList.toggle('open');
 });
 
+// Código para criar os corações animados que sobem pela tela
 const heartsContainer = document.querySelector('.hearts-container');
 
 function createHeart() {
@@ -10,22 +12,24 @@ function createHeart() {
   heart.classList.add('heart');
   heart.textContent = '💖';
 
-  // posição horizontal aleatória dentro do container (de 5% a 95%)
+  // posição horizontal aleatória (5% a 95%)
   const leftPercent = Math.random() * 90 + 5;
   heart.style.left = leftPercent + '%';
 
-  // tempo aleatório pra delay da animação, entre 0 e 5s
+  // começar na parte de baixo da tela (100%)
+  heart.style.top = '100%';
+
+  // delay aleatório da animação (0 a 5s)
   const delay = Math.random() * 5;
   heart.style.animationDelay = delay + 's';
 
-  // adiciona ao container
   heartsContainer.appendChild(heart);
 
-  // remove após terminar animação (5s)
-  setTimeout(() => {
+  // remover coração após animação terminar
+  heart.addEventListener('animationend', () => {
     heart.remove();
-  }, 5000);
+  });
 }
 
-// cria um novo coração a cada 700ms, para efeito contínuo
+// criar um coração a cada 700ms
 setInterval(createHeart, 700);

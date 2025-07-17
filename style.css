@@ -1,272 +1,244 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fbc1cc 50%, #fad0c4 100%);
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  gap: 30px;
+}
+
+h1 {
+  color: #ff2e63;
+  font-size: 2.2rem;
+  text-align: center;
+}
+
+/* Coração pulsante */
+.heart-pulse {
+  width: 80px;
+  height: 80px;
+  background-color: #ff2e63;
+  position: relative;
+  transform: rotate(-45deg);
+  animation: pulse 1.5s infinite;
+  margin: 20px 0 40px;
+}
+.heart-pulse::before,
+.heart-pulse::after {
+  content: "";
+  width: 80px;
+  height: 80px;
+  background-color: #ff2e63;
+  border-radius: 50%;
+  position: absolute;
+}
+.heart-pulse::before {
+  top: -40px;
+  left: 0;
+}
+.heart-pulse::after {
+  left: 40px;
+  top: 0;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: rotate(-45deg) scale(1);
   }
-  
-  body {
-    margin: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fbc1cc 50%, #fad0c4 100%);
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    min-height: 100vh;
-    gap: 30px;
+  50% {
+    transform: rotate(-45deg) scale(1.2);
   }
-  
+}
+
+/* Cartinha envelope */
+.card-container {
+  width: 90%;
+  max-width: 400px;
+}
+
+.card {
+  width: 100%;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+  user-select: none;
+  transition: all 0.7s ease;
+}
+
+/* Frente do envelope */
+.card-front {
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  position: relative;
+  padding: 60px 20px 40px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: opacity 0.6s ease, transform 0.7s ease;
+}
+
+/* Aba triangular do envelope */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(135deg, #ff2e63, #ff6f91);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  box-shadow: inset 0 4px 8px rgba(255, 255, 255, 0.4);
+  z-index: 2;
+}
+
+/* Texto da frente */
+.card-front p {
+  position: relative;
+  z-index: 3;
+  margin-top: 20px;
+}
+
+/* Verso da carta */
+.card-back {
+  max-height: 0;
+  opacity: 0;
+  padding: 0 20px;
+  color: #333;
+  overflow: hidden;
+  transition: max-height 0.7s ease, opacity 0.7s ease, padding 0.7s ease;
+  border-radius: 0 0 15px 15px;
+}
+
+.card-back h2 {
+  color: #ff2e63;
+  margin-top: 0;
+  text-align: center;
+}
+
+.card-back img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 15px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Estado aberto */
+.card.open .card-front {
+  opacity: 0;
+  transform: translateY(-30px) rotateX(15deg);
+  pointer-events: none;
+  height: 0;
+  padding: 0 20px;
+  transition: opacity 0.5s ease, transform 0.7s ease, height 0.5s ease, padding 0.5s ease;
+}
+
+.card.open .card-back {
+  max-height: 1000px;
+  opacity: 1;
+  padding: 20px;
+  overflow: visible;
+  transition: max-height 0.7s ease, opacity 0.7s ease, padding 0.7s ease;
+}
+
+/* Mensagem fora da carta */
+.outside-message {
+  margin-top: 30px;
+  max-width: 400px;
+  text-align: center;
+  color: #ff2e63;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.outside-message img {
+  margin-top: 15px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(255, 46, 99, 0.3);
+}
+
+/* Footer texto com animação */
+.footer-love-message {
+  font-size: 1.4rem;
+  color: #d63384;
+  font-weight: 700;
+  text-align: center;
+  margin: 40px 0;
+  text-shadow: 0 0 8px #ffb6d9;
+  animation: fadeText 3s ease-in-out infinite;
+  user-select: none;
+}
+
+@keyframes fadeText {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Corações flutuantes */
+.hearts-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 9999;
+}
+
+.heart {
+  position: absolute;
+  font-size: 0.9rem;
+  opacity: 0;
+  animation: riseAndFade 5s linear forwards;
+}
+
+@keyframes riseAndFade {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-160px); opacity: 0; }
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .heart-pulse {
+    width: 60px;
+    height: 60px;
+  }
+  .heart-pulse::before, .heart-pulse::after {
+    width: 60px;
+    height: 60px;
+  }
   h1 {
-    color: #ff2e63;
-    margin-bottom: 10px;
-    font-size: 2.2rem;
-    text-align: center;
+    font-size: 1.8rem;
   }
-  
-  /* Coração pulsante */
-  .heart {
-    width: 80px;
-    height: 80px;
-    background-color: #ff2e63;
-    position: relative;
-    transform: rotate(-45deg);
-    animation: pulse 1.5s infinite;
-    margin: 20px 0 40px;
-    cursor: default;
-  }
-  .heart::before,
-  .heart::after {
-    content: "";
-    width: 80px;
-    height: 80px;
-    background-color: #ff2e63;
-    border-radius: 50%;
-    position: absolute;
-  }
-  .heart::before {
-    top: -40px;
-    left: 0;
-  }
-  .heart::after {
-    left: 40px;
-    top: 0;
-  }
-  
-  @keyframes pulse {
-    0%, 100% {
-      transform: rotate(-45deg) scale(1);
-      background-color: #ff2e63;
-    }
-    50% {
-      transform: rotate(-45deg) scale(1.2);
-      background-color: #ff2e63;
-    }
-  }
-  
-  /* Cartinha */
-  .card-container {
-    width: 90%;
-    max-width: 400px;
-  }
-  
-  .card {
-    width: 100%;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: height 0.7s;
-    padding: 20px;
-  }
-  
-  /* Frente e verso sem posicionamento absoluto */
-  .card-front, .card-back {
-    border-radius: 15px;
-    overflow: hidden;
-    transition: opacity 0.7s ease;
-  }
-  
   .card-front {
-    font-weight: bold;
-    font-size: 1.4rem;
-    color: #fff;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-    padding: 40px 20px;
-    text-align: center;
-    user-select: none;
-    opacity: 1;
-  }
-  
-  .card-back {
-    color: #333;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    padding: 0 20px;
-    box-sizing: border-box;
-  }
-  
-  .card-back h2 {
-    color: #ff2e63;
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.6rem;
-    text-align: center;
-  }
-  
-  .card-back p {
     font-size: 1rem;
-    line-height: 1.4;
-    margin-bottom: 15px;
+    padding: 50px 15px 30px;
   }
-  
-  .card-back img {
-    max-width: 100%;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  .card-back {
+    font-size: 0.95rem;
   }
-  
-  /* Quando aberto */
-  .card.open .card-front {
-    opacity: 0;
-    height: 0;
-    padding: 0 20px;
-    overflow: hidden;
-    pointer-events: none;
-    transition: opacity 0.5s ease, height 0.5s ease, padding 0.5s ease;
-  }
-  
-  .card.open .card-back {
-    max-height: 1000px; /* valor grande para expandir */
-    opacity: 1;
-    padding: 20px;
-    overflow: visible;
-    transition: max-height 0.7s ease, opacity 0.7s ease, padding 0.7s ease;
-  }
-  
-  /* Texto e imagem fora da cartinha */
   .outside-message {
-    margin-top: 30px;
-    max-width: 400px;
-    text-align: center;
-    color: #ff2e63;
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1rem;
   }
-  
-  .outside-message img {
-    margin-top: 15px;
-    width: 100%;
-    max-width: 400px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(255, 46, 99, 0.3);
-  }
-  
-  /* Responsividade */
-  @media (max-width: 480px) {
-    .heart {
-      width: 60px;
-      height: 60px;
-    }
-    .heart::before,
-    .heart::after {
-      width: 60px;
-      height: 60px;
-      top: -30px;
-      left: 0;
-    }
-    .heart::after {
-      left: 30px;
-      top: 0;
-    }
-  
-    h1 {
-      font-size: 1.8rem;
-    }
-  
-    .card-front {
-      font-size: 1.2rem;
-      padding: 30px 15px;
-    }
-  
-    .card-back {
-      font-size: 0.9rem;
-    }
-  
-    .outside-message {
-      font-size: 1rem;
-    }
-  }
-
-
-  
- 
-  
-  
-  
-  @keyframes fadeText {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
-  
-  .hearts-container {
-    position: fixed; /* fixa na tela */
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh; /* altura total da tela */
-    pointer-events: none;
-    overflow: visible;
-    z-index: 9999; /* acima de tudo */
-  }
-  
-  /* Corações pequenos */
-  .heart {
-    position: absolute;
-    font-size: 0.5rem;
-    user-select: none;
-    opacity: 0;
-    will-change: transform, opacity;
-    animation: riseAndFade 5s linear forwards;
-  }
-  
-  /* Animação dos corações subindo e sumindo */
-  @keyframes riseAndFade {
-    0% {
-      transform: translateY(0);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-160px);
-      opacity: 0;
-    }
-  }
-  
-  /* Frase centralizada e com estilo */
-  .footer-love-message {
-    font-size: 1.4rem;
-    color: #d63384;
-    font-weight: 700;
-    text-align: center;
-    margin: 40px 0;
-    position: relative;
-    z-index: 10;
-    user-select: none;
-    text-shadow: 0 0 8px #ffb6d9;
-    animation: fadeText 3s ease-in-out infinite;
-  }
-  
-  @keyframes fadeText {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
+}
